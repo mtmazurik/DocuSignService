@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  eca.services.document.signature:
+    image: ecaservicesdocumentsignature
+    build:
+      context: .
+      dockerfile: ECA.Services.Document.Signature\Dockerfile
