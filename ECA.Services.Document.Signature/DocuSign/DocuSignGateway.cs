@@ -16,7 +16,7 @@ namespace ECA.Services.Document.Signature.DocuSign
         private const string SIGNER_ROLE = "Signer";                                // limitation:  Signer role is hard-coded
         private const string RECIPIENT_ID = "1";                                    // limitation:  one recipient is hard-coded
         private const string STATUS_SENT = "sent";                                            
-        private String _integrationKey = "071cb13c-874c-47a3-9509-24322de20a34";    // default: overriden by appsettings.json
+        private String _integrationKey = "00000000-0000-0000-0000-000000000000";    // default: overriden by appsettings.json
         private String _apiUrl = "https://demo.docusign.net/restapi";               // default: overriden by appsettings.json
         private ApiClient _apiClient;
         private IEnvelopesApi _envelopesApi;
