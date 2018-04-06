@@ -6,26 +6,30 @@ using ECA.Services.Document.Signature.Models;
 using ECA.Services.Document.Signature.DocuSign;
 using Microsoft.AspNetCore.Mvc;
 using DocuSign.eSign.Api;
-
+using System.Net;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ECA.Services.Document.Signature.Controllers
 {
+
+    /// <summary>
+    /// Signature Service
+    /// </summary>
     [Route("signature/")]
     public class SignatureController : Controller
     {
-
-        [HttpGet("{guid}/fields")]
+        [HttpGet("{docuSignTemplate-guid}/fields")]
         [ProducesResponseType(200)]
+        [ProducesResponseType(501)]
         public IActionResult Get(Guid? guid)
         {
-            return Ok();
+            return StatusCode(501);  // nyi
         }
-
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Post([FromBody]SignatureRequest body)         // POST signature   { json body == SignatureRequest } 
+        [SwaggerResponse((int)HttpStatusCode.OK, typeof(Response))]
+        public IActionResult Post([FromBody]SignatureRequest body, [FromServices]IDocuSignGateway gateway )         // aspnetcore inject gateway, see: startup.cs
         {
-            IDocuSignGateway gateway = new DocuSignGateway( new AuthenticationApi() as IAuthenticationApi, new EnvelopesApi() as EnvelopesApi ) as IDocuSignGateway;
             return Ok( gateway.Send(body) );
         }
 

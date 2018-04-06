@@ -9,3 +9,4 @@
 /docker-compose.dcproj.user
 /ECA.Services.Document.Signature/appsettings.Development.json
 /ECA.Services.Document.Signature/bin/Debug/netcoreapp2.0
+/obj/Debug/docker-compose.dcproj.FileListAbsolute.txt

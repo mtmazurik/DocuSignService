@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECA.Services.Document.Signature.DocuSign
 {
-    interface IDocuSignGateway
+    public interface IDocuSignGateway
     {
         Response Send(Models.SignatureRequest request);
 

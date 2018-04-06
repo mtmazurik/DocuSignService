@@ -9,9 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECA.Services.Document.Signature
+namespace ECA.Services.Document.Signature.DocuSign
 {
-    public class DocuSignGateway
+    public class DocuSignGateway : IDocuSignGateway
     {
         private const string SIGNER_ROLE = "Signer";                                // limitation:  Signer role is hard-coded
         private const string RECIPIENT_ID = "1";                                    // limitation:  one recipient is hard-coded
@@ -26,14 +26,21 @@ namespace ECA.Services.Document.Signature
         {
             _authApi = authApi;
             _envelopesApi = envelopesApi;
-
-            GetConfigSettings(out _apiUrl, out _integrationKey);              
-            _apiClient = new ApiClient(_apiUrl);
         }
         public Response Send( SignatureRequest request )
         {
-            return FormatResponse( _envelopesApi.CreateEnvelope( Login( request.DocuSignUsername, request.DocuSignPassword, _integrationKey) 
-                                                                , CreateEnvelopeDefinition(request)) );
+            try
+            {
+                GetConfigSettings(out _apiUrl, out _integrationKey);
+                _apiClient = new ApiClient(_apiUrl);
+                EnvelopeSummary envelopeSummary = _envelopesApi.CreateEnvelope(Login(request.DocuSignUsername, request.DocuSignPassword, _integrationKey)
+                                                                    , CreateEnvelopeDefinition(request));
+                return FormatEnvelopeResponse(envelopeSummary);
+            }
+            catch(Exception exc)
+            {
+                return FormatExceptionResponse(exc);
+            }
         }
         private string Login( string username, string password, string key)
         {
@@ -80,7 +87,19 @@ namespace ECA.Services.Document.Signature
             }
             return textTabs;
         }
-        private Response FormatResponse(EnvelopeSummary envelopeSummary)
+        private Response FormatExceptionResponse(Exception exc)
+        {
+            Response response = new Response();
+            response.Meta.Add("status", "exception");
+            response.Meta.Add("hresult", exc.HResult.ToString());
+            response.Meta.Add("exception-message", exc.ToString());
+            if( exc.InnerException != null)
+            {
+                response.Meta.Add("inner-exception", exc.InnerException.ToString());
+            }
+            return response;
+        }
+        private Response FormatEnvelopeResponse(EnvelopeSummary envelopeSummary)
         {
             Response response = new Response();
             response.Meta.Add("status", envelopeSummary.Status);
@@ -104,8 +123,8 @@ namespace ECA.Services.Document.Signature
                 .AddJsonFile("appsettings.json");
             configuration = builder.Build();
 
-            retApiUrl = configuration["IntegrationKey"];
-            retIntegrationKey = configuration["ApiUrl"];
+            retApiUrl = configuration["ApiUrl"];
+            retIntegrationKey = configuration["IntegrationKey"];
         }
     }
 }

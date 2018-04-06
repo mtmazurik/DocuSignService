@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DocuSign.eSign.Api;
+using ECA.Services.Document.Signature.DocuSign;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +39,8 @@ namespace ECA.Services.Document.Signature
             });
 
             // IOC - the ASPNET Core way
-            services.AddTransient<IEnvelopesApi, EnvelopesApi>();       // for injecting some DocuSign objects
+            services.AddTransient<IDocuSignGateway, DocuSignGateway>();
+            services.AddTransient<IEnvelopesApi, EnvelopesApi>();       
             services.AddTransient<IAuthenticationApi, AuthenticationApi>();
 
         }
