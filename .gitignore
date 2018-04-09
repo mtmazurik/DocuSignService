@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/build/.vs/ECA.Services.Document.Signature/v15
+/ECA.Services.Document.Signature/obj
+/obj/Docker
+/docker-compose.dcproj.user
+/ECA.Services.Document.Signature/appsettings.Development.json
+/ECA.Services.Document.Signature/bin/Debug/netcoreapp2.0
+/obj/Debug/docker-compose.dcproj.FileListAbsolute.txt
