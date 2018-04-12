@@ -64,7 +64,7 @@ namespace ECA.Services.Document.Signature.DocuSign
             TemplateRole role = new TemplateRole();
 
             role.Email = signatureRequest.EmailAddress;
-            role.Name = signatureRequest.FirstName + " " + signatureRequest.LastName;
+            role.Name = signatureRequest.Name;
             role.RoleName = SIGNER_ROLE;
             role.Tabs = new Tabs();
             role.Tabs.TextTabs = FormatTextTabs(signatureRequest.Fields);

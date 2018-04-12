@@ -28,8 +28,7 @@ To test Container and DocuSign
   "docuSignTemplateId": "00e571b0-a6e8-4709-aaad-3b50f82bdcbb",
   "emailAddress": "mmazurik@epiqglobal.com",
   "subject": "Your DocuSign document is ready to sign",
-  "firstName": "Jed",
-  "lastName": "Clampett",
+  "name": "Jed Clampett",
   "fields": {
   	"caseName": "Hollywood vs. Oil Claim Jumper",
   	"claimantName": "Jed Clampett"
