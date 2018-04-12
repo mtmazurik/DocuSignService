@@ -12,8 +12,7 @@ namespace ECA.Services.Document.Signature.Models
         public string DocuSignTemplateId { get; set; }
         public string EmailAddress { get; set; }
         public string Subject { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
         public Dictionary<string, string> Fields { get; set; }
     }
 
