@@ -1,0 +1,1 @@
+C:\git\ECA.Services.Document.Signature\build\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">  
+  <metadata>
+    <id>ECA.Services.Document.Signature.Database</id>
+    <version>$version$</version>
+    <authors>Epiq</authors>
+    <description>Database owned by Signature Service</description>
+  </metadata>
+  <files>
+    <file src="bin\Output\ECA.Services.Document.Signature.Database.dacpac" target="" />
+    <file src="Publish Profiles\SignatureSvc.Database.Octopus.publish.xml" />
+  </files>
+</package>

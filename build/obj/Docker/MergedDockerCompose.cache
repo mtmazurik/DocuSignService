@@ -1,0 +1,11 @@
+services:
+  eca.services.document.signature:
+    build:
+      context: C:\git\ECA.Services.Document.Signature\build
+      dockerfile: ../ECA.Services.Document.Signature/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: ecaservicesdocumentsignature
+    ports:
+    - 30291:80/tcp
+version: '3.0'

@@ -1,0 +1,1 @@
+﻿Placeholder so that wwwroot folder is added to source control

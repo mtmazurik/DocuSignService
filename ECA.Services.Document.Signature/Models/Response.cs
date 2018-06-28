@@ -1,30 +1,64 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ECA.Services.Document.Signature.Models
 {
-    public class Response
+    public class Response : IResponse
     {
-        // usage:     Response resp = new Response();
-        //
-        //            resp.Meta.Add("status","ok");
-        //
-        //            resp.Data.Add("id", "12345678-9876-3456-1234-546780424789");
-
         private Dictionary<string, string> _meta;
-        private Dictionary<string, string> _data;
+        private Object _data;
 
         public Response()           // ctor
         {
             _meta = new Dictionary<string, string>();
-            _data = new Dictionary<string, string>();
+            _data = new JArray();
+        }
+        public Response(Object poco)    // plain old c# class serialized down the pipe by controller binding
+        {
+            _data = poco;
+        }
+        public Response(string key, string value)
+        {
+            _meta = new Dictionary<string, string>();
+            _data = new JArray();
+            _data = new JObject(new JProperty(key, value));
+        }
+        public Response(JArray jarray)
+        {
+            _meta = new Dictionary<string, string>();
+            _data = jarray;
         }
 
         public Dictionary<string,string> Meta {  get { return _meta; } }
 
-        public Dictionary<string,string> Data {  get { return _data; } }
+        public Object Data {
+            get
+            { return _data;  }
+            set
+            {
+                _data = value;
+            }
+        }
 
-    }
+
+
+
+
+        public void InsertStatusCodeIntoMeta(int statusCode)
+        {
+            this.Meta.Add("status", statusCode.ToString());
+        }
+        public void InsertExceptionIntoMeta(Exception exc)
+        {
+            this.Meta.Add("message", exc.Message);
+            this.Meta.Add("details", exc.ToString());
+            if (exc.InnerException != null)
+            {
+                this.Meta.Add("InnerException", exc.InnerException.ToString());
+            }
+        }
+}
 }
